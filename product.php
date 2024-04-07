@@ -137,7 +137,10 @@ if (isset($_GET['id'])) {
                     <a class="next" onclick="plusSlides(1)">&#10095;</a>
                 </div>
 
-                <div class="col-lg-6 text-center">
+                <form action="chkAddCart.php" method="POST" class="col-lg-6 text-center">
+
+                    <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
+
                     <!-- Product Information -->
                     <h4 class="fw-bold mb-3">
                         <?php echo $prodotto["nome"] ?>
@@ -159,8 +162,8 @@ if (isset($_GET['id'])) {
                         </div>
 
                         <!-- Display Quantity -->
-                        <input type="text" style="background-color: #eff2f1;"
-                            class="form-control form-control-sm text-center border-0" id="selectedQuantity" value="1">
+                        <input type="number" style="background-color: #eff2f1;"
+                            class="form-control form-control-sm text-center border-0" name="quantity" id="selectedQuantity" value="1">
 
                         <!-- Add Quantity -->
                         <div class="input-group-btn">
@@ -170,10 +173,9 @@ if (isset($_GET['id'])) {
                             </button>
                         </div>
                     </div>
-                    <!-- Add to Cart -->
-                    <a href="chkAddCart.php" class="btn btn-secondary me-2" style="width: 200px; margin: 0 auto;">Add to
-                        Cart</a>
-                </div>
+
+                    <input type="submit" class="btn-toCart btn-product border border-secondary text-primary rounded-pill px-4 py-3" value="Add to Cart">
+                </form>
 
                 <div class="col-lg-12">
                     <nav>
@@ -211,23 +213,11 @@ if (isset($_GET['id'])) {
             </div>
 
 
-            <!-- Leave a Review -->
-            <br>
-            <form action="#">
-                <h4 class="mb-5 fw-bold">Leave a Review</h4>
-                <div class="row g-4">
-                    <div class="border-bottom rounded my-4">
-                        <textarea name="" id="" class="form-control border-0" cols="30" rows="8"
-                            placeholder="Your Review *" spellcheck="false"></textarea>
-                    </div>
-                    <div class="d-flex justify-content-between py-3 mb-5">
-
-                        <a href="#"
-                            class="btn-product border border-secondary text-primary rounded-pill px-4 py-3 product-link">
-                            Post Comment</a>
-                    </div>
-                </div>
-            </form>
+            <?php
+            if (isset($_SESSION["username"])) {
+                include 'review.php';
+            }
+            ?>
         </div>
 
     </div>
