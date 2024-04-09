@@ -43,7 +43,7 @@ include "connection.php";
                     $productName = $product['nome'];
                     $productImage = "images/products/" . myDB::getInstance()->Select("SELECT Path FROM ecommerce_foto WHERE IDProdotto = " . $product['ID'] . " LIMIT 1")[0]['Path'];
                     $productPrice = $product['prezzo'];
-                    $productPage = "product.php?id=" . $product['ID'];
+                    $productPage = "productDetails.php?id=" . $product['ID'];
                     ?>
                     <div class="col-12 col-md-4 col-lg-3 mb-5">
                         <a class="product-item" href=<?php echo $productPage; ?>>

@@ -155,10 +155,9 @@ if (isset($_GET['id'])) {
 
                         <!-- Remove Quantity -->
                         <div class="input-group-btn">
-                            <button class="btn-product btn-sm btn-minus rounded-circle bg-light border"
-                                onclick="addQuantity(-1)">
-                                <i class="fa fa-minus"></i>
-                            </button>
+                            <input type="button" class="btn-product btn-sm btn-minus rounded-circle bg-light border"
+                                onclick="addQuantity(-1)" value="-" style="width: 50px; height: 50px">
+                            </input>
                         </div>
 
                         <!-- Display Quantity -->
@@ -167,10 +166,9 @@ if (isset($_GET['id'])) {
 
                         <!-- Add Quantity -->
                         <div class="input-group-btn">
-                            <button class="btn-product btn-sm btn-plus rounded-circle bg-light border"
-                                onclick="addQuantity(1)">
-                                <i class="fa fa-plus"></i>
-                            </button>
+                            <input type="button" class="btn-product btn-sm btn-plus rounded-circle bg-light border"
+                                onclick="addQuantity(1)" value="+" style="width: 50px; height: 50px">
+                            </input>
                         </div>
                     </div>
 
