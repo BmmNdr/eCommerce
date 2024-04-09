@@ -4,7 +4,11 @@
 <?php
 session_start();
 
-include "connection.php";
+require_once "CProduct.php";
+require_once "CHero.php";
+require_once "CGallery.php";
+
+$gallery = new CGallery();
 ?>
 
 <head>
@@ -24,76 +28,12 @@ include "connection.php";
     <?php include "./navbar.php" ?>
 
     <!-- Start Hero Section -->
-    <div class="hero">
-        <div class="container">
-            <div class="row justify-content-between">
-                <div class="col-lg-5">
-                    <div class="intro-excerpt">
-                        <h1>E-commerce <span clsas="d-block">Web Site</span></h1>
-                        <p class="mb-4">Explore our curated collection of products and discover the perfect fit for your
-                            needs. Shop with confidence knowing that every item is handpicked for quality and style.</p>
-                        <p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="shop.php"
-                                class="btn btn-white-outline">Explore</a></p>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="hero-img-wrap">
-                        <?php
-                        $max = myDB::getInstance()->Select("SELECT COUNT(*) FROM ecommerce_foto")[0]["COUNT(*)"];
-
-                        $src = "images/products/" . myDB::getInstance()->Select("SELECT Path FROM ecommerce_foto")[rand(0, $max - 1)]["Path"];
-
-                        echo "<img src='$src' class='img-fluid'>";
-                        ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php echo Hero::indexHero() ?>
     <!-- End Hero Section -->
 
     <!-- Start Product Section -->
     <div class="product-section">
-        <div class="container">
-            <div class="row">
-
-                <!-- Start Column 1 -->
-                <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
-                    <h2 class="mb-4 section-title">Crafted with excellent material.</h2>
-                    <p class="mb-4">Explore our curated collection of products and discover the perfect fit for your
-                        needs. Shop with confidence knowing that every item is handpicked for quality and style.</p>
-                    <p><a href="shop.php" class="btn">Explore</a></p>
-                </div>
-                <!-- End Column 1 -->
-
-                <?php
-                $products = myDB::getInstance()->Select("SELECT * FROM ecommerce_prodotti");
-
-
-                $randomProducts = array_rand($products, 3);
-                foreach ($randomProducts as $index) {
-                    $product = $products[$index];
-                    $imagePath = "images/products/" . myDB::getInstance()->Select("SELECT Path FROM ecommerce_foto WHERE IDProdotto = ? LIMIT 1", "i", [$product["ID"]])[0]["Path"];
-                    $productName = $product["nome"];
-                    $productPrice = $product["prezzo"];
-                    $pagePath = "productDetails.php?id=" . $product["ID"];
-                    echo <<<HTML
-                        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                            <a class="product-item" href="$pagePath">
-                                <img src="$imagePath" class="img-fluid product-thumbnail">
-                                <h3 class="product-title">$productName</h3>
-                                <strong class="product-price">$productPrice $</strong>
-                                <span class="icon-cross">
-                                    <img src="images/cross.svg" class="img-fluid">
-                                </span>
-                            </a>
-                        </div>
-                    HTML;
-                }
-                ?>
-
-            </div>
-        </div>
+        <?php echo $gallery->outGalleryIndex() ?>
     </div>
     <!-- End Product Section -->
 

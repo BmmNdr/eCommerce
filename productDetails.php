@@ -1,9 +1,11 @@
 <?php
 session_start();
-include "connection.php";
+require_once "connection.php";
+require_once "CHero.php";
+require_once "CProduct.php";
 
 if (isset($_GET['id'])) {
-    $prodotto = myDB::getInstance()->Select("SELECT * FROM ecommerce_prodotti WHERE ID = ?", "i", [$_GET['id']])[0];
+    $prodotto = Product::fromID($_GET['id']);
 }
 ?>
 <!DOCTYPE html>
@@ -12,7 +14,7 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="utf-8">
     <title>
-        <?php echo $prodotto["nome"] ?>
+        <?php echo $prodotto->nome ?>
     </title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -94,133 +96,17 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
-    <input type="hidden" id="valQuantity" value="<?php echo $prodotto['quantita'] ?>">
+    <input type="hidden" id="valQuantity" value="<?php echo $prodotto->quantita ?>">
 
     <?php include 'navbar.php'; ?>
 
     <!-- Start Hero Section -->
-    <div class="hero">
-        <div class="container">
-            <div class="row justify-content-between">
-                <div class="col-lg-5">
-                    <div class="intro-excerpt">
-                        <h1>Product Details</h1>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php echo Hero::normalHero("Product Details") ?>
     <!-- End Hero Section -->
 
     <!-- Single Product Start -->
-    <div class="container py-5">
-        <div class="row g-4 mb-5">
-            <div class="row g-4">
-                <!-- Slideshow container -->
-                <div class="col-lg-6 slideshow-container">
-                    <?php
-                    $images = myDB::getInstance()->Select("SELECT * FROM ecommerce_prodotti JOIN ecommerce_foto ON ecommerce_prodotti.ID = ecommerce_foto.IDProdotto WHERE ecommerce_prodotti.ID = ?", "i", [$_GET['id']]);
-
-                    foreach ($images as $image) {
-                        echo '<div class="mySlides">';
-                        echo '<img src="images/products/' . $image['Path'] . '" style="width:100%">';
-                        echo '</div>';
-                    }
-
-                    ?>
-
-                    <!-- Next and previous buttons -->
-                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
-                </div>
-
-                <form action="chkAddCart.php" method="POST" class="col-lg-6 text-center">
-
-                    <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
-
-                    <!-- Product Information -->
-                    <h4 class="fw-bold mb-3">
-                        <?php echo $prodotto["nome"] ?>
-                    </h4>
-                    <h5 class="fw-bold mb-3">
-                        <?php echo $prodotto["prezzo"] ?> $
-                    </h5>
-                    <p class="mb-4">
-                        <?php echo $prodotto["descrizione"] ?>
-                    </p>
-                    <div class="input-group quantity mb-5" style="width: 200px; margin: 0 auto;">
-
-                        <!-- Remove Quantity -->
-                        <div class="input-group-btn">
-                            <input type="button" class="btn-product btn-sm btn-minus rounded-circle bg-light border"
-                                onclick="addQuantity(-1)" value="-" style="width: 50px; height: 50px">
-                            </input>
-                        </div>
-
-                        <!-- Display Quantity -->
-                        <input type="number" style="background-color: #eff2f1;"
-                            class="form-control form-control-sm text-center border-0" name="quantity" id="selectedQuantity" value="1">
-
-                        <!-- Add Quantity -->
-                        <div class="input-group-btn">
-                            <input type="button" class="btn-product btn-sm btn-plus rounded-circle bg-light border"
-                                onclick="addQuantity(1)" value="+" style="width: 50px; height: 50px">
-                            </input>
-                        </div>
-                    </div>
-
-                    <input type="submit" class="btn-toCart btn-product border border-secondary text-primary rounded-pill px-4 py-3" value="Add to Cart">
-                </form>
-
-                <div class="col-lg-12">
-                    <nav>
-                        <div class="nav nav-tabs mb-3">
-                            <button class="nav-link border-white border-bottom-0" type="button" role="tab"
-                                id="nav-mission-tab" data-bs-toggle="tab" data-bs-target="#nav-mission"
-                                aria-controls="nav-mission" aria-selected="true">Reviews</button>
-                        </div>
-                    </nav>
-                    <div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
-
-                        <?php
-                        $reviews = myDB::getInstance()->Select("SELECT * FROM ecommerce_feedback WHERE IDProdotto = ?", "i", [$_GET['id']]);
-
-                        foreach ($reviews as $review) {
-                            echo '<div class="d-flex">';
-                            echo '<div>';
-                            echo '<p class="mb-2" style="font-size: 14px;">' . $review['Data'] . '</p>';
-                            echo '<div class="d-flex justify-content-between">';
-                            echo '<p><h5>' . myDB::getInstance()->Select("SELECT * FROM ecommerce_utenti WHERE ID = ?", "i", [$review['IDUtente']])[0]["username"] . '</h5></p>';
-                            echo '<div class="d-flex mb-3">';
-                            for ($i = 0; $i < $review['Voto']; $i++) {
-                                echo '<i class="fa fa-star"></i>';
-                            }
-                            echo '</div>';
-                            echo '</div>';
-                            echo '<p>' . $review['Commento'] . '</p>';
-                            echo '</div>';
-                            echo '</div>';
-                        }
-                        ?>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <?php
-            if (isset($_SESSION["username"])) {
-                include 'review.php';
-            }
-            ?>
-        </div>
-
-    </div>
+    <?php echo $prodotto->outDetails() ?>
     <!-- Single Product End -->
-
 
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
