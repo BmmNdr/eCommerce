@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once "connection.php";
-require_once "CHero.php";
-require_once "CProduct.php";
+require_once "entity/connection.php";
+require_once "entity/CHero.php";
+require_once "entity/CProduct.php";
 
 if (isset($_GET['id'])) {
     $prodotto = Product::fromID($_GET['id']);
@@ -42,71 +42,17 @@ if (isset($_GET['id'])) {
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 
-    <style>
-        .mySlides {
-            display: none
-        }
-
-        /* Slideshow container */
-        .slideshow-container {
-            max-width: 1000px;
-            position: relative;
-            margin: auto;
-        }
-
-        /* Next & previous buttons */
-        .prev,
-        .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            padding: 16px;
-            margin-top: -22px;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
-        }
-
-        /* Position the "next button" to the right */
-        .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
-        }
-
-        /* On hover, add a black background color with a little bit see-through */
-        .prev:hover,
-        .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-        /* On smaller screens, decrease text size */
-        @media only screen and (max-width: 300px) {
-
-            .prev,
-            .next,
-            .text {
-                font-size: 11px
-            }
-        }
-    </style>
+    <link href="css/imageSlider.css" rel="stylesheet">
 </head>
 
 <body>
     <input type="hidden" id="valQuantity" value="<?php echo $prodotto->quantita ?>">
 
-    <?php include 'navbar.php'; ?>
+    <?php include 'template/navbar.php'; ?>
 
-    <!-- Start Hero Section -->
     <?php echo Hero::normalHero("Product Details") ?>
-    <!-- End Hero Section -->
 
-    <!-- Single Product Start -->
     <?php echo $prodotto->outDetails() ?>
-    <!-- Single Product End -->
 
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

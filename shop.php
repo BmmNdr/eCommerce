@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once "CGallery.php";
-require_once "CHero.php";
-$gallery = new CGallery();
+require_once "entity/CGallery.php";
+require_once "entity/CHero.php";
+$gallery = CGallery::getInstance();
 ?>
 <html>
 
@@ -14,16 +14,11 @@ $gallery = new CGallery();
 </head>
 
 <body>
-    <?php include "navbar.php"; ?>
+    <?php include "template/navbar.php"; ?>
 
-    <!-- Start Hero Section -->
     <?php echo Hero::normalHero("Shop") ?>
-    <!-- End Hero Section -->
 
-
-    <div class="untree_co-section product-section before-footer-section">
-        <?php echo $gallery->outGallery() ?>
-    </div>
+    <?php echo $gallery->outGallery() ?>
 
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/tiny-slider.js"></script>

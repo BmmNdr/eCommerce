@@ -1,32 +1,41 @@
 <?php
-require_once "CProduct.php";
+require_once "entity/CProduct.php";
 
 class CGallery
 {
     private $products;
+    private static $_instance = null;
 
-    public function __construct()
+    public static function getInstance(){
+        if(!self::$_instance){
+            $instance = new CGallery();
+        }
+
+        return $instance;
+    }
+
+    private function __construct()
     {
         $this->products = Product::fromRecordSet(myDB::getInstance()->Select("SELECT * FROM ecommerce_prodotti"));
     }
 
     public function outGallery()
     {
-        $string = "<div class='container'><div class='row'>";
+        $string = "<div class='untree_co-section product-section before-footer-section'><div class='container'><div class='row'>";
 
 
         foreach ($this->products as $product) {
             $string .= $product->outShop();
         }
 
-        $string .= "</div></div>";
+        $string .= "</div></div></div>";
 
         return $string;
     }
 
     public function outGalleryIndex()
     {
-        $string = "<div class='container'><div class='row'>
+        $string = "<div class='product-section'><div class='container'><div class='row'>
         <div class='col-md-12 col-lg-3 mb-5 mb-lg-0'>
                     <h2 class='mb-4 section-title'>Crafted with excellent material.</h2>
                     <p class='mb-4'>Explore our curated collection of products and discover the perfect fit for your
@@ -40,7 +49,7 @@ class CGallery
             $string .= $this->products[$index]->outShop();
         }
 
-        $string .= "</div></div>";
+        $string .= "</div></div></div>";
 
         return $string;
     }

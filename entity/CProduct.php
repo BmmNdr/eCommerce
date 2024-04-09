@@ -1,7 +1,7 @@
 <?php
-require_once "connection.php";
-require_once 'CReview.php';
-require_once "CReview.php";
+require_once "entity/connection.php";
+require_once 'entity/CReview.php';
+require_once "entity/CReview.php";
 
 class Product
 {
@@ -11,7 +11,6 @@ class Product
     public $prezzo;
     public $quantita;
     public $dataAggiunta;
-
     public $images;
     public $reviews;
 
@@ -56,9 +55,7 @@ class Product
                             <img src='$productImage' class='img-fluid product-thumbnail'>
                             <h3 class='product-title'>$this->nome</h3>
                             <strong class='product-price'>$this->prezzo $</strong>
-                            <span class='icon-cross'>
-                                <img src='images/cross.svg' class='img-fluid'>
-                            </span>
+                            <span class='icon-cross'><img src='images/cross.svg' class='img-fluid'></span>
                         </a>
                     </div>";
 
@@ -75,21 +72,26 @@ class Product
         }
 
         $string .= "<a class='prev' onclick='plusSlides(-1)'>&#10094;</a><a class='next' onclick='plusSlides(1)'>&#10095;</a></div>
-        <form action='chkAddCart.php' method='POST' class='col-lg-6 text-center'><input type='hidden' name='id' value='$this->ID'>
-        <h4 class='fw-bold mb-3'>$this->nome</h4><h5 class='fw-bold mb-3'>$this->prezzo $</h5><p class='mb-4'>$this->descrizione</p>
-        <div class='input-group quantity mb-5' style='width: 200px; margin: 0 auto;'><div class='input-group-btn'>
-        <input type='button' class='btn-product btn-sm btn-minus rounded-circle bg-light border'onclick='addQuantity(-1)' value='-' style='width: 50px; height: 50px'>
-        </input></div><input type='number' style='background-color: #eff2f1;'
-        class='form-control form-control-sm text-center border-0' name='quantity' id='selectedQuantity' value='1'>
-                        <div class='input-group-btn'>
-                            <input type='button' class='btn-product btn-sm btn-plus rounded-circle bg-light border'
-                                onclick='addQuantity(1)' value='+' style='width: 50px; height: 50px'>
-                            </input>
-                        </div>
-                    </div>
-
-                    <input type='submit' class='btn-toCart btn-product border border-secondary text-primary rounded-pill px-4 py-3' value='Add to Cart'>
-                </form>";
+        <form action='chkAddCart.php' method='POST' class='col-lg-6 text-center'>
+           <input type='hidden' name='id' value='$this->ID'>
+           <h4 class='fw-bold mb-3'>$this->nome</h4>
+           <h5 class='fw-bold mb-3'>$this->prezzo $</h5>
+           <p class='mb-4'>$this->descrizione</p>
+           <div class='input-group quantity mb-5' style='width: 200px; margin: 0 auto;'>
+              <div class='input-group-btn'>
+                 <input type='button' class='btn-product btn-sm btn-minus rounded-circle bg-light border'onclick='addQuantity(-1)' value='-' style='width: 50px; height: 50px'>
+                 </input>
+              </div>
+              <input type='number' style='background-color: #eff2f1;'
+                 class='form-control form-control-sm text-center border-0' name='quantity' id='selectedQuantity' value='1'>
+              <div class='input-group-btn'>
+                 <input type='button' class='btn-product btn-sm btn-plus rounded-circle bg-light border'
+                    onclick='addQuantity(1)' value='+' style='width: 50px; height: 50px'>
+                 </input>
+              </div>
+           </div>
+           <input type='submit' class='btn-toCart btn-product border border-secondary text-primary rounded-pill px-4 py-3' value='Add to Cart'>
+        </form>";
 
 
 

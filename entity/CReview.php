@@ -1,11 +1,12 @@
 <?php
-require_once "connection.php";
+require_once "entity/connection.php";
+require_once 'entity/CProduct.php';
 
 class Review
 {
     public $ID;
-    public $IDProdotto;
-    public $IDUtente;
+    public $nomeProdotto;
+    public $nomeUtente;
     public $Commento;
     public $Voto;
     public $Data;
@@ -14,8 +15,8 @@ class Review
     public function __construct($ID, $IDProdotto, $IDUtente, $Commento, $Voto, $Data, $IDOrdine)
     {
         $this->ID = $ID;
-        $this->IDProdotto = $IDProdotto;
-        $this->IDUtente = $IDUtente;
+        $this->nomeProdotto = myDB::getInstance()->Select("SELECT nome FROM ecommerce_prodotti WHERE ID = ?", "i", [$IDProdotto])[0]["nome"];
+        $this->nomeUtente = myDB::getInstance()->Select("SELECT username FROM ecommerce_utenti WHERE ID = ?", "i", [$IDUtente])[0]["username"];
         $this->Commento = $Commento;
         $this->Voto = $Voto;
         $this->Data = $Data;
@@ -56,11 +57,11 @@ class Review
         return $string;
     }
 
-    public function out()
+    public function outNav()
     {
         $string = "<div class='d-flex'><div><p class='mb-2' style='font-size: 14px;'>" . $this->Data . '</p>';
         $string .= '<div class="d-flex justify-content-between">';
-        $string .= '<p><h5>' . myDB::getInstance()->Select("SELECT * FROM ecommerce_utenti WHERE ID = ?", "i", [$this->IDUtente])[0]["username"] . '</h5></p>';
+        $string .= '<p><h5>' . $this->nomeUtente . '</h5></p>';
         $string .= '<div class="d-flex mb-3">';
         for ($i = 0; $i < $this->Voto; $i++) {
             $string .= '<i class="fa fa-star"></i>';
@@ -87,9 +88,42 @@ class Review
                     <div class='tab-pane' id='nav-mission' role='tabpanel' aria-labelledby='nav-mission-tab'>";
 
         foreach ($reviews as $review) {
-            $string .= $review->out();
+            $string .= $review->outNav();
         }
         $string .= '</div></div></div>';
+
+        return $string;
+    }
+
+    public static function reviewSlider()
+    {
+        $string = '<div class="testimonial-slider">';
+
+        $reviews = Review::fromRecordSet(myDB::getInstance()->Select("SELECT * FROM ecommerce_feedback"));
+
+        $randomReviewIndex = array_rand($reviews, 3);
+        foreach ($randomReviewIndex as $index) {
+            $comment = $reviews[$index]->Commento;
+            $user = $reviews[$index]->nomeUtente;
+            $product = $reviews[$index]->nomeProdotto;
+
+            $string .= "<div class='item'>
+                                            <div class='row justify-content-center'>
+                                                <div class='col-lg-8 mx-auto'>
+                                                    <div class='testimonial-block text-center'>
+                                                        <blockquote class='mb-5'>
+                                                            <p>&ldquo;$comment&rdquo;</p>
+                                                        </blockquote>
+                                                        <div class='author-info'>
+                                                            <h3 class='font-weight-bold'>$user</h3>
+                                                            <span class='position d-block mb-3'>$product</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>";
+        }
+        $string .= '</div>';
 
         return $string;
     }

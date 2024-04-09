@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "connection.php";
+require_once "entity/connection.php";
 
 if(count(myDB::getInstance()->Select("SELECT username FROM ecommerce_utenti WHERE username = ?", "s", [$_POST["username"]])) == 0){
 
