@@ -1,6 +1,7 @@
 <?php
 require_once "connection.php";
 require_once 'CReview.php';
+require_once "CReview.php";
 
 class Product
 {
@@ -26,7 +27,7 @@ class Product
 
         $this->images = myDB::getInstance()->Select("SELECT Path FROM ecommerce_foto WHERE IDProdotto = ?", "i", [$ID]);
 
-        $this->reviews = myDB::getInstance()->Select("SELECT * FROM ecommerce_feedback WHERE IDProdotto = ?", "i", [$ID]);
+        $this->reviews = Review::fromRecordSet(myDB::getInstance()->Select("SELECT * FROM ecommerce_feedback WHERE IDProdotto = ?", "i", [$ID]));
     }
 
     public static function fromID($ID)
@@ -88,35 +89,11 @@ class Product
                     </div>
 
                     <input type='submit' class='btn-toCart btn-product border border-secondary text-primary rounded-pill px-4 py-3' value='Add to Cart'>
-                </form>
-
-                <div class='col-lg-12'>
-                    <nav>
-                        <div class='nav nav-tabs mb-3'>
-                            <button class='nav-link border-white border-bottom-0' type='button' role='tab'
-                                id='nav-mission-tab' data-bs-toggle='tab' data-bs-target='#nav-mission'
-                                aria-controls='nav-mission' aria-selected='true'>Reviews</button>
-                        </div>
-                    </nav>
-                    <div class='tab-pane' id='nav-mission' role='tabpanel' aria-labelledby='nav-mission-tab'>";
+                </form>";
 
 
 
-        foreach ($this->reviews as $review) {
-            $string .= "<div class='d-flex'><div><p class='mb-2' style='font-size: 14px;'>'" . $review['Data'] . '</p>';
-            $string .= '<div class="d-flex justify-content-between">';
-            $string .= '<p><h5>' . myDB::getInstance()->Select("SELECT * FROM ecommerce_utenti WHERE ID = ?", "i", [$review['IDUtente']])[0]["username"] . '</h5></p>';
-            $string .= '<div class="d-flex mb-3">';
-            for ($i = 0; $i < $review['Voto']; $i++) {
-                $string .= '<i class="fa fa-star"></i>';
-            }
-            $string .= '</div>';
-            $string .= '</div>';
-            $string .= '<p>' . $review['Commento'] . '</p>';
-            $string .= '</div>';
-            $string .= '</div>';
-        }
-        $string .= '</div></div></div>';
+        $string .= Review::navReview($this->reviews);
 
 
 
