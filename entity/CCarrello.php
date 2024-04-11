@@ -1,26 +1,36 @@
-<?php 
+<?php
 
 require_once "entity/connection.php";
 require_once "entity/CProduct.php";
 
-class Carrello {
+class Carrello
+{
 
-    public $prodotti;
-    public $idCarrello;
-    public $idUtente;
+  public $prodotti;
+  public $idCarrello;
+  public $idUtente;
 
-    public function __construct($idCarrello, $idUtente)
-    {
-        $this->idCarrello = $idCarrello;
-        $this->idUtente = $idUtente;
+  public $totale;
 
-        $this->prodotti = Product::fromIdCarrello($idCarrello);
+  public function __construct($idCarrello, $idUtente)
+  {
+    $this->idCarrello = $idCarrello;
+    $this->idUtente = $idUtente;
+
+    $this->prodotti = Product::fromIdCarrello($idCarrello);
+
+    $this->totale = 0;
+
+    foreach ($this->prodotti as $product) {
+      $this->totale += $product->prezzo * $product->quantita;
     }
+  }
 
-    public function out(){
-        $string = '<div class="container">
+  public function out()
+  {
+    $string = '<div class="container">
               <div class="row mb-5">
-                <form class="col-md-12" method="post">
+                <div class="col-md-12">
                   <div class="site-blocks-table">
                     <table class="table">
                       <thead>
@@ -33,40 +43,30 @@ class Carrello {
                           <th class="product-remove">Remove</th>
                         </tr>
                       </thead><tbody>';
-                        
-        foreach ($this->prodotti as $prodotto) {
-          $string .= $prodotto->outCart();
-        }
-        
-                      $string .= '</tbody></table></div></form></div>
-        
+
+    foreach ($this->prodotti as $prodotto) {
+      $string .= $prodotto->outCart();
+    }
+
+    $string .= '</tbody></table></div></div></div>
               <div class="row">
-                <div class="col-md-6 pl-5">
-                  <div class="row justify-content-end">
-                    <div class="col-md-7">
-                      <div class="row mb-5">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                           <span class="text-black">Total</span>
                         </div>
-                        <div class="col-md-6 text-right">
-                          <strong class="text-black">$230.00</strong>
+                        <div class="col-md-4 text-right">
+                          <strong class="text-black">$ ' . $this->totale . '</strong>
                         </div>
-                      </div>
-        
-                      <div class="row">
+                        <div class="col-md-4 text-right">
                         <form action="checkout.php"  class="col-md-12">
                           <input type="submit" value="Checkout">
                         </form>
-                      </div>
+                        </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>';
+                </div>';
 
-        return $string;
-    }
+    return $string;
+  }
 }
 
 ?>

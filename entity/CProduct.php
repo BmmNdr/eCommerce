@@ -41,7 +41,7 @@ class Product
 
         $products = [];
         foreach ($new as $record) {
-            array_push($products, new Product($record['ID'], $record['nome'], $record['descrizione'], $record['prezzo'], $record['quantita'], $record['dataAggiunta']));
+            array_push($products, new Product($record['IDProdotto'], $record['nome'], $record['descrizione'], $record['prezzo'], $record['quantita'], $record['dataAggiunta']));
         }
 
         return $products;
@@ -129,7 +129,7 @@ class Product
                           </td><td>' . $this->prezzo . '</td>
                           <td>' . $this->quantita . '</td>
                           <td>' . $totale . ' $</td>
-                          <td><a href="#" class="btn btn-black btn-sm">X</a></td>
+                          <td><a href="remove.php?ID=' . $this->ID . '" class="btn btn-black btn-sm">X</a></td>
                         </tr>';
 
         return $string;
