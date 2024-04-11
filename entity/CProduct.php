@@ -35,6 +35,18 @@ class Product
         return new Product($new['ID'], $new['nome'], $new['descrizione'], $new['prezzo'], $new['quantita'], $new['dataAggiunta']);
     }
 
+    public static function fromIDCarrello($IDCarrello)
+    {
+        $new = myDB::getInstance()->Select("SELECT * FROM ecommerce_prodotti JOIN ecommerce_aggiunta ON ecommerce_prodotti.ID = ecommerce_aggiunta.IDProdotto WHERE ecommerce_aggiunta.IDCarrello = ?", "i", [$IDCarrello]);
+
+        $products = [];
+        foreach ($new as $record) {
+            array_push($products, new Product($record['ID'], $record['nome'], $record['descrizione'], $record['prezzo'], $record['quantita'], $record['dataAggiunta']));
+        }
+
+        return $products;
+    }
+
     public static function fromRecordSet($recordSet)
     {
         $products = [];
@@ -103,6 +115,23 @@ class Product
             $string .= Review::reviewForm($this->ID);
         }
         $string .= "</div></div></div></div>";
+
+        return $string;
+    }
+
+    public function outCart()
+    {
+        $totale = $this->quantita * $this->prezzo;
+        $string .= '<tr><td class="product-thumbnail"><img src="images/products/' . $this->images[0]['Path'] . '" alt="Image" class="img-fluid">
+                          </td>
+                          <td class="product-name">
+                            <h2 class="h5 text-black">' . $this->nome . '</h2>
+                          </td>
+                          <td>' . $this->prezzo . '</td>
+                          <td>' . $this->quantita . '</td>
+                          <td>' . $this->totale . ' $</td>
+                          <td><a href="#" class="btn btn-black btn-sm">X</a></td>
+                        </tr>';
 
         return $string;
     }
