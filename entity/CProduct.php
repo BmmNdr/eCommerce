@@ -122,14 +122,13 @@ class Product
     public function outCart()
     {
         $totale = $this->quantita * $this->prezzo;
-        $string .= '<tr><td class="product-thumbnail"><img src="images/products/' . $this->images[0]['Path'] . '" alt="Image" class="img-fluid">
+        $string = '<tr><td class="product-thumbnail"><img src="images/products/' . $this->images[0]['Path'] . '" alt="Image" class="img-fluid">
                           </td>
                           <td class="product-name">
                             <h2 class="h5 text-black">' . $this->nome . '</h2>
-                          </td>
-                          <td>' . $this->prezzo . '</td>
+                          </td><td>' . $this->prezzo . '</td>
                           <td>' . $this->quantita . '</td>
-                          <td>' . $this->totale . ' $</td>
+                          <td>' . $totale . ' $</td>
                           <td><a href="#" class="btn btn-black btn-sm">X</a></td>
                         </tr>';
 
