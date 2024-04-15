@@ -1,6 +1,6 @@
 <?php
 require_once "entity/connection.php";
-$result = myDB::getInstance()->Select("SELECT username FROM ecommerce_utenti WHERE password = md5(?) AND username = ?", "ss", [$_POST["password"], $_POST["username"]]);
+$result = myDB::getInstance()->Select("SELECT * FROM ecommerce_utenti WHERE password = md5(?) AND username = ?", "ss", [$_POST["password"], $_POST["username"]]);
 
 if (count($result) > 0) {
     session_start();
