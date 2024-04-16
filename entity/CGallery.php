@@ -1,28 +1,23 @@
 <?php
-require_once "entity/CProduct.php";
-require_once "../api/getProducts.php";
+require_once "CProduct.php";
 
 class CGallery
 {
-    private static $_instance = null;
-
-    public static function getInstance(){
-        if(!self::$_instance){
-            $instance = new CGallery();
-        }
-
-        return $instance;
-    }
-
-    private function __construct()
+    public static function getProducts($pagina=null)
     {
+        $numeroProdottiPerPagina = 2;
+        $sql = "SELECT * FROM ecommerce_prodotti ORDER BY id";   //LIMIT: da dove, quanti elementi
+        if($pagina!=null) 
+            $sql .= " LIMIT " . ($pagina - 1) * $numeroProdottiPerPagina . ", " . $numeroProdottiPerPagina;
+
+        return Product::fromRecordSet(myDB::getInstance()->Select($sql));
     }
 
-    public function outGallery()
+    public static function outGallery($pagina=null)
     {
         $string = "<div class='untree_co-section product-section before-footer-section'><div class='container'><div id='galleria' class='row'>";
 
-        $products = getProducts();
+        $products = CGallery::getProducts($pagina);
         foreach ($products as $product) {
             $string .= $product->outShop();
         }
@@ -32,7 +27,7 @@ class CGallery
         return $string;
     }
 
-    public function outGalleryIndex($products)
+    public static function outGalleryIndex()
     {
         $string = "<div class='product-section'><div class='container'><div class='row'>
         <div class='col-md-12 col-lg-3 mb-5 mb-lg-0'>

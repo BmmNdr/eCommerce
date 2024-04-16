@@ -1,7 +1,6 @@
 <?php
-require_once "entity/connection.php";
-require_once 'entity/CReview.php';
-require_once "entity/CReview.php";
+require_once "connection.php";
+require_once 'CReview.php';
 
 class Product
 {

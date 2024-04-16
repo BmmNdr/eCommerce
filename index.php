@@ -7,8 +7,6 @@ session_start();
 require_once "entity/CProduct.php";
 require_once "entity/CHero.php";
 require_once "entity/CGallery.php";
-
-$gallery = CGallery::getInstance();
 ?>
 
 <head>
@@ -28,7 +26,7 @@ $gallery = CGallery::getInstance();
 
     <?php echo Hero::indexHero() ?>
 
-    <?php echo $gallery->outGalleryIndex() ?>
+    <?php echo CGallery::outGalleryIndex() ?>
 
     <?php include "template/whyChooseUs.html" ?>
 

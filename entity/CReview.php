@@ -1,6 +1,6 @@
 <?php
-require_once "entity/connection.php";
-require_once 'entity/CProduct.php';
+require_once "connection.php";
+require_once 'CProduct.php';
 
 class Review
 {
