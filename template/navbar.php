@@ -5,7 +5,8 @@
     <div class="container">
         <a class="navbar-brand" href="index.php">E-Commerce<span>.</span></a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+            aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -18,10 +19,15 @@
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-                <li><a class="nav-link" href="login.php"><img src="images/user.svg">  <?php if(isset($_SESSION["username"])) echo $_SESSION["username"]?></a></li>
-                <li><a class="nav-link" href="carrello.php"><img src="images/cart.svg"></a></li>
-            </ul>
+                <li>
+                        <?php
+                            if (isset($_SESSION["username"]))
+                                echo '<a class="nav-link"><img src="images/user.svg">' . $_SESSION["username"] . '</a>';
+                        ?>
+                        </li>
+                    <li><a class="nav-link" href="carrello.php"><img src="images/cart.svg"></a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
-<!-- End Header/Navigation -->
+    </nav>
+    <!-- End Header/Navigation -->

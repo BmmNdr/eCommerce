@@ -1,9 +1,9 @@
 <?php
 require_once "entity/CProduct.php";
+require_once "../api/getProducts.php";
 
 class CGallery
 {
-    private $products;
     private static $_instance = null;
 
     public static function getInstance(){
@@ -16,15 +16,14 @@ class CGallery
 
     private function __construct()
     {
-        $this->products = Product::fromRecordSet(myDB::getInstance()->Select("SELECT * FROM ecommerce_prodotti"));
     }
 
     public function outGallery()
     {
-        $string = "<div class='untree_co-section product-section before-footer-section'><div class='container'><div class='row'>";
+        $string = "<div class='untree_co-section product-section before-footer-section'><div class='container'><div id='galleria' class='row'>";
 
-
-        foreach ($this->products as $product) {
+        $products = getProducts();
+        foreach ($products as $product) {
             $string .= $product->outShop();
         }
 
@@ -33,7 +32,7 @@ class CGallery
         return $string;
     }
 
-    public function outGalleryIndex()
+    public function outGalleryIndex($products)
     {
         $string = "<div class='product-section'><div class='container'><div class='row'>
         <div class='col-md-12 col-lg-3 mb-5 mb-lg-0'>
@@ -43,10 +42,10 @@ class CGallery
                     <p><a href='shop.php' class='btn'>Explore</a></p>
                 </div>";
 
-
-        $randomProductsIndex = array_rand($this->products, 3);
+        $products = CGallery::getProducts();
+        $randomProductsIndex = array_rand($products, 3);
         foreach ($randomProductsIndex as $index) {
-            $string .= $this->products[$index]->outShop();
+            $string .= $products[$index]->outShop();
         }
 
         $string .= "</div></div></div>";
