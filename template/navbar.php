@@ -23,6 +23,8 @@
                         <?php
                             if (isset($_SESSION["username"]))
                                 echo '<a class="nav-link"><img src="images/user.svg">' . $_SESSION["username"] . '</a>';
+                            else
+                                echo '<a class="nav-link" href="login.php"><img src="images/user.svg">Login</a>';
                         ?>
                         </li>
                     <li><a class="nav-link" href="carrello.php"><img src="images/cart.svg"></a></li>
