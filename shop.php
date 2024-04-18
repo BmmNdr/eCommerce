@@ -2,6 +2,7 @@
 session_start();
 require_once "entity/CGallery.php";
 require_once "entity/CHero.php";
+require_once "entity/connection.php";
 ?>
 <html>
 
@@ -18,7 +19,34 @@ require_once "entity/CHero.php";
 
     <?php echo Hero::normalHero("Shop") ?>
 
-    <?php echo CGallery::outGallery(1) ?>
+    <div class="container">
+        <form action="shop.php" method="GET">
+            <label for="filter">Filter by category:</label>
+            <select id="filter" name="filter">
+                <?php
+                    $categories = myDB::getInstance()->Select("SELECT * FROM ecommerce_categoria");
+
+                    foreach ($categories as $category) {
+
+                        if(isset($_GET["filter"]) && $_GET["filter"] == $category['ID'])
+                            echo "<option value='" . $category['ID'] . "' selected>" . $category['Nome'] . "</option>";
+                        else
+                            echo "<option value='" . $category['ID'] . "'>" . $category['Nome'] . "</option>";
+                    }
+                ?>
+            </select>
+            <input type="submit" value="Filter">
+        </form>
+    </div>
+
+    <?php 
+        $filter = null;
+
+        if(isset($_GET["filter"]))
+            $filter = $_GET["filter"];  
+
+        echo CGallery::outGallery(1, $filter) 
+    ?>
 
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/tiny-slider.js"></script>

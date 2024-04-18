@@ -9,6 +9,11 @@ $(window).scroll(function () {
     var documentHeight = $(document).height();
     var windowHeight = $(window).height();
 
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    var filter =  urlParams.get('filter');
+
     // Se la posizione di scroll è vicina al fondo della pagina
     if (scrollTop + windowHeight >= documentHeight - 100) {
       // Carica la pagina successiva
@@ -19,20 +24,21 @@ $(window).scroll(function () {
         $("#galleria").append("<p style='text-align: center; margin-top: 20px;'>Non ci sono più prodotti da caricare</p>");
       }
       else
-        caricaProdotti(ultimaPaginaCaricata++);
+        caricaProdotti(ultimaPaginaCaricata++, filter);
     }
   }
 
 
 });
 
-function caricaProdotti(pagina) {
+function caricaProdotti(pagina, filtro) {
   // Esegui una chiamata AJAX per caricare i prodotti
   $.ajax({
     url: "entity/getProducts.php",
     type: "GET",
     data: {
-      pagina: pagina
+      pagina: pagina,
+      filtro: filtro
     },
     success: function (data) {
       // Aggiungi i nuovi prodotti alla galleria

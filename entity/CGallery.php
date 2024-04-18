@@ -3,21 +3,26 @@ require_once "CProduct.php";
 
 class CGallery
 {
-    public static function getProducts($pagina=null)
+    public static function getProducts($pagina=null, $filter=null)
     {
         $numeroProdottiPerPagina = 2;
-        $sql = "SELECT * FROM ecommerce_prodotti ORDER BY id";   //LIMIT: da dove, quanti elementi
+        $sql = "SELECT * FROM ecommerce_prodotti";   //LIMIT: da dove, quanti elementi
+
+        if($filter!=null)
+            $sql .= " WHERE ID IN (SELECT IDProdotto FROM ecommerce_appartiene WHERE IDCategoria = $filter)";
+
+            
         if($pagina!=null) 
-            $sql .= " LIMIT " . ($pagina - 1) * $numeroProdottiPerPagina . ", " . $numeroProdottiPerPagina;
+            $sql .= " ORDER BY ID LIMIT " . ($pagina - 1) * $numeroProdottiPerPagina . ", " . $numeroProdottiPerPagina;
 
         return Product::fromRecordSet(myDB::getInstance()->Select($sql));
     }
 
-    public static function outGallery($pagina=null)
+    public static function outGallery($pagina=null, $filter=null)
     {
-        $string = "<div class='untree_co-section product-section before-footer-section'><div class='container'><div id='galleria' class='row'>";
+        $string = "<div class='product-section'><div class='container'><div id='galleria' class='row'>";
 
-        $products = CGallery::getProducts($pagina);
+        $products = CGallery::getProducts($pagina, $filter);
         foreach ($products as $product) {
             $string .= $product->outShop();
         }
