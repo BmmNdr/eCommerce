@@ -104,15 +104,11 @@ class Product
            <input type='submit' class='btn-toCart btn-product border border-secondary text-primary rounded-pill px-4 py-3' value='Add to Cart'>
         </form>";
 
-
-
-        $string .= Review::navReview($this->reviews);
-
-
-
         if (isset($_SESSION["username"])) {
             $string .= Review::reviewForm($this->ID);
         }
+
+        $string .= Review::navReview($this->reviews);
         $string .= "</div></div></div></div>";
 
         return $string;
