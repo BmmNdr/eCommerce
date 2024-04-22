@@ -1,4 +1,4 @@
-let ultimaPaginaCaricata = 2;
+let ultimaPaginaCaricata = 1;
 let loading = false;
 let EOF = false;
 
@@ -42,14 +42,22 @@ function caricaProdotti(pagina, filtro) {
     },
     success: function (data) {
       // Aggiungi i nuovi prodotti alla galleria
-      if(data == "") EOF = true;
+      if(data == ""){
+        EOF = true;
+      }
+      else {
         $("#galleria").append(data); // document.getElementById("galleria").innerHTML += data;
         loading = false;
+      }
     }});
 }
 
 //Al termine del caricamento:
 if ($("body").css("overflow-y") !== "scroll") {
   // La barra di scroll non è presente
-  caricaProdotti(ultimaPaginaCaricata++);
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  var filter =  urlParams.get('filter');
+
+  caricaProdotti(ultimaPaginaCaricata++, filter);
 }

@@ -8,7 +8,7 @@ class CGallery
         $numeroProdottiPerPagina = 2;
         $sql = "SELECT * FROM ecommerce_prodotti";   //LIMIT: da dove, quanti elementi
 
-        if($filter!=null)
+        if($filter!=null && $filter!=0)
             $sql .= " WHERE ID IN (SELECT IDProdotto FROM ecommerce_appartiene WHERE IDCategoria = $filter)";
 
             
@@ -18,14 +18,14 @@ class CGallery
         return Product::fromRecordSet(myDB::getInstance()->Select($sql));
     }
 
-    public static function outGallery($pagina=null, $filter=null)
+    public static function outGallery()
     {
         $string = "<div class='product-section'><div class='container'><div id='galleria' class='row'>";
 
-        $products = CGallery::getProducts($pagina, $filter);
-        foreach ($products as $product) {
-            $string .= $product->outShop();
-        }
+        //$products = CGallery::getProducts($pagina, $filter);
+        //foreach ($products as $product) {
+        //    $string .= $product->outShop();
+        //}
 
         $string .= "</div></div></div>";
 

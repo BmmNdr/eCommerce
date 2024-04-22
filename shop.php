@@ -21,32 +21,27 @@ require_once "entity/connection.php";
 
     <div class="container">
         <form action="shop.php" method="GET">
-            <label for="filter">Filter by category:</label>
-            <select id="filter" name="filter">
+            <label for="filter" class="label">Filter by category:</label>
+            <select id="filter" name="filter" class="select">
+                <option value="0" selected>All</option>
+
                 <?php
-                    $categories = myDB::getInstance()->Select("SELECT * FROM ecommerce_categoria");
+                $categories = myDB::getInstance()->Select("SELECT * FROM ecommerce_categoria");
 
-                    foreach ($categories as $category) {
+                foreach ($categories as $category) {
 
-                        if(isset($_GET["filter"]) && $_GET["filter"] == $category['ID'])
-                            echo "<option value='" . $category['ID'] . "' selected>" . $category['Nome'] . "</option>";
-                        else
-                            echo "<option value='" . $category['ID'] . "'>" . $category['Nome'] . "</option>";
-                    }
+                    if (isset($_GET["filter"]) && $_GET["filter"] == $category['ID'])
+                        echo "<option value='" . $category['ID'] . "' selected>" . $category['Nome'] . "</option>";
+                    else
+                        echo "<option value='" . $category['ID'] . "'>" . $category['Nome'] . "</option>";
+                }
                 ?>
             </select>
-            <input type="submit" value="Filter">
+            <input type="submit" value="Filter" class="submit-button">
         </form>
     </div>
 
-    <?php 
-        $filter = null;
-
-        if(isset($_GET["filter"]))
-            $filter = $_GET["filter"];  
-
-        echo CGallery::outGallery(1, $filter) 
-    ?>
+    <?php echo CGallery::outGallery(); ?>
 
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/tiny-slider.js"></script>
