@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2024 at 09:16 AM
+-- Generation Time: Apr 23, 2024 at 10:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,6 +33,14 @@ CREATE TABLE `ecommerce_aggiunta` (
   `IDCarrello` int(11) NOT NULL,
   `quantita` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `ecommerce_aggiunta`
+--
+
+INSERT INTO `ecommerce_aggiunta` (`ID`, `IDProdotto`, `IDCarrello`, `quantita`) VALUES
+(6, 2, 1, 1),
+(7, 6, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -82,7 +90,8 @@ CREATE TABLE `ecommerce_carrelli` (
 --
 
 INSERT INTO `ecommerce_carrelli` (`ID`, `IDUtente`) VALUES
-(1, 1);
+(1, 1),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -121,7 +130,7 @@ CREATE TABLE `ecommerce_feedback` (
   `ID` int(11) NOT NULL,
   `Voto` int(11) NOT NULL,
   `Commento` varchar(256) NOT NULL,
-  `Data` date NOT NULL,
+  `Data` date NOT NULL DEFAULT current_timestamp(),
   `IDUtente` int(11) NOT NULL,
   `IDProdotto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -135,7 +144,8 @@ INSERT INTO `ecommerce_feedback` (`ID`, `Voto`, `Commento`, `Data`, `IDUtente`, 
 (4, 5, 'Ottima qualita\'/prezzo', '2024-04-02', 1, 2),
 (5, 8, 'Ottima', '2024-04-02', 1, 3),
 (6, 8, 'Miglior console', '2024-04-02', 1, 4),
-(7, 7, 'Ottimo laptop', '2024-04-03', 1, 2);
+(7, 7, 'Ottimo laptop', '2024-04-03', 1, 2),
+(8, 8, 'Portatile leggero', '2024-04-23', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -182,7 +192,8 @@ CREATE TABLE `ecommerce_ordini` (
 --
 
 INSERT INTO `ecommerce_ordini` (`ID`, `IDCarrello`) VALUES
-(1, 1);
+(1, 1),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -313,7 +324,7 @@ ALTER TABLE `ecommerce_utenti`
 -- AUTO_INCREMENT for table `ecommerce_aggiunta`
 --
 ALTER TABLE `ecommerce_aggiunta`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_appartiene`
@@ -325,7 +336,7 @@ ALTER TABLE `ecommerce_appartiene`
 -- AUTO_INCREMENT for table `ecommerce_carrelli`
 --
 ALTER TABLE `ecommerce_carrelli`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_categoria`
@@ -337,7 +348,7 @@ ALTER TABLE `ecommerce_categoria`
 -- AUTO_INCREMENT for table `ecommerce_feedback`
 --
 ALTER TABLE `ecommerce_feedback`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_foto`
@@ -349,7 +360,7 @@ ALTER TABLE `ecommerce_foto`
 -- AUTO_INCREMENT for table `ecommerce_ordini`
 --
 ALTER TABLE `ecommerce_ordini`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_prodotti`
