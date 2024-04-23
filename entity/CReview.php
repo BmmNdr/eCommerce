@@ -43,14 +43,28 @@ class Review
         <form action='chkReview.php' method='POST'>
             <h4 class='mb-5 fw-bold'>Leave a Review</h4>
             <div class='row g-4'>
-                <input type='hidden' name='id' value='$idProdotto'>
+                <input type='hidden' name='idProdotto' value='$idProdotto'>
                 <div class='border-bottom rounded my-4'>
                     <textarea name='commento' id='commento' class='form-control border-0' cols='30' rows='8' placeholder='Your Review' spellcheck='false'></textarea>
+                </div>
+                <div class='slidecontainer'>
+                    <input type='range' min='1' max='10' value='5' class='slider' id='myRange' name='voto'>
+                    <p>Voto: <span id='demo'></span></p>
                 </div>
                 <div class='d-flex justify-content-between py-3 mb-5'>
                     <input type='submit' class='btn-product border border-secondary text-primary rounded-pill px-4 py-3' value='Post Comment'>
                 </div>
             </div>
+
+            <script>
+                var slider = document.getElementById('myRange');
+                var output = document.getElementById('demo');
+                output.innerHTML = slider.value;
+
+                slider.oninput = function() {
+                output.innerHTML = this.value;
+                }
+            </script>
         </form>";
 
         return $string;

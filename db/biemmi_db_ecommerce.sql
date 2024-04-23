@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Apr 07, 2024 alle 17:24
--- Versione del server: 10.4.32-MariaDB
--- Versione PHP: 8.2.12
+-- Generation Time: Apr 23, 2024 at 09:16 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `ecommerce_aggiunta`
+-- Table structure for table `ecommerce_aggiunta`
 --
 
 CREATE TABLE `ecommerce_aggiunta` (
@@ -34,20 +34,10 @@ CREATE TABLE `ecommerce_aggiunta` (
   `quantita` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dump dei dati per la tabella `ecommerce_aggiunta`
---
-
-INSERT INTO `ecommerce_aggiunta` (`ID`, `IDProdotto`, `IDCarrello`, `quantita`) VALUES
-(1, 1, 1, 1),
-(2, 2, 1, 1),
-(3, 3, 1, 1),
-(4, 4, 1, 1);
-
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `ecommerce_appartiene`
+-- Table structure for table `ecommerce_appartiene`
 --
 
 CREATE TABLE `ecommerce_appartiene` (
@@ -56,10 +46,30 @@ CREATE TABLE `ecommerce_appartiene` (
   `IDCategoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `ecommerce_appartiene`
+--
+
+INSERT INTO `ecommerce_appartiene` (`ID`, `IDProdotto`, `IDCategoria`) VALUES
+(4, 1, 3),
+(5, 2, 4),
+(6, 3, 5),
+(7, 4, 6),
+(8, 5, 7),
+(9, 6, 8),
+(10, 7, 9),
+(11, 8, 10),
+(12, 9, 6),
+(13, 10, 11),
+(14, 1, 12),
+(15, 2, 12),
+(16, 3, 12),
+(17, 4, 12);
+
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `ecommerce_carrelli`
+-- Table structure for table `ecommerce_carrelli`
 --
 
 CREATE TABLE `ecommerce_carrelli` (
@@ -68,7 +78,7 @@ CREATE TABLE `ecommerce_carrelli` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dump dei dati per la tabella `ecommerce_carrelli`
+-- Dumping data for table `ecommerce_carrelli`
 --
 
 INSERT INTO `ecommerce_carrelli` (`ID`, `IDUtente`) VALUES
@@ -77,19 +87,34 @@ INSERT INTO `ecommerce_carrelli` (`ID`, `IDUtente`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `ecommerce_categoria`
+-- Table structure for table `ecommerce_categoria`
 --
 
 CREATE TABLE `ecommerce_categoria` (
   `ID` int(11) NOT NULL,
-  `Nome` varchar(32) NOT NULL,
-  `Descrizione` text NOT NULL
+  `Nome` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `ecommerce_categoria`
+--
+
+INSERT INTO `ecommerce_categoria` (`ID`, `Nome`) VALUES
+(3, 'Smartphone'),
+(4, 'Portatili'),
+(5, 'Smart TV'),
+(6, 'Console da gioco'),
+(7, 'Macchine fotografiche'),
+(8, 'Smartwatch'),
+(9, 'Cuffie'),
+(10, 'Droni'),
+(11, 'Stampanti'),
+(12, 'Elettronica');
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `ecommerce_feedback`
+-- Table structure for table `ecommerce_feedback`
 --
 
 CREATE TABLE `ecommerce_feedback` (
@@ -98,25 +123,24 @@ CREATE TABLE `ecommerce_feedback` (
   `Commento` varchar(256) NOT NULL,
   `Data` date NOT NULL,
   `IDUtente` int(11) NOT NULL,
-  `IDProdotto` int(11) NOT NULL,
-  `IDOrdine` int(11) NOT NULL
+  `IDProdotto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dump dei dati per la tabella `ecommerce_feedback`
+-- Dumping data for table `ecommerce_feedback`
 --
 
-INSERT INTO `ecommerce_feedback` (`ID`, `Voto`, `Commento`, `Data`, `IDUtente`, `IDProdotto`, `IDOrdine`) VALUES
-(3, 2, 'Pessimo Prodotto', '2024-04-02', 1, 1, 1),
-(4, 5, 'Ottima qualita\'/prezzo', '2024-04-02', 1, 2, 1),
-(5, 8, 'Ottima', '2024-04-02', 1, 3, 1),
-(6, 8, 'Miglior console', '2024-04-02', 1, 4, 1),
-(7, 7, 'Ottimo laptop', '2024-04-03', 1, 2, 1);
+INSERT INTO `ecommerce_feedback` (`ID`, `Voto`, `Commento`, `Data`, `IDUtente`, `IDProdotto`) VALUES
+(3, 2, 'Pessimo Prodotto', '2024-04-02', 1, 1),
+(4, 5, 'Ottima qualita\'/prezzo', '2024-04-02', 1, 2),
+(5, 8, 'Ottima', '2024-04-02', 1, 3),
+(6, 8, 'Miglior console', '2024-04-02', 1, 4),
+(7, 7, 'Ottimo laptop', '2024-04-03', 1, 2);
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `ecommerce_foto`
+-- Table structure for table `ecommerce_foto`
 --
 
 CREATE TABLE `ecommerce_foto` (
@@ -126,7 +150,7 @@ CREATE TABLE `ecommerce_foto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dump dei dati per la tabella `ecommerce_foto`
+-- Dumping data for table `ecommerce_foto`
 --
 
 INSERT INTO `ecommerce_foto` (`ID`, `Path`, `IDProdotto`) VALUES
@@ -145,7 +169,7 @@ INSERT INTO `ecommerce_foto` (`ID`, `Path`, `IDProdotto`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `ecommerce_ordini`
+-- Table structure for table `ecommerce_ordini`
 --
 
 CREATE TABLE `ecommerce_ordini` (
@@ -154,7 +178,7 @@ CREATE TABLE `ecommerce_ordini` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dump dei dati per la tabella `ecommerce_ordini`
+-- Dumping data for table `ecommerce_ordini`
 --
 
 INSERT INTO `ecommerce_ordini` (`ID`, `IDCarrello`) VALUES
@@ -163,7 +187,7 @@ INSERT INTO `ecommerce_ordini` (`ID`, `IDCarrello`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `ecommerce_prodotti`
+-- Table structure for table `ecommerce_prodotti`
 --
 
 CREATE TABLE `ecommerce_prodotti` (
@@ -176,7 +200,7 @@ CREATE TABLE `ecommerce_prodotti` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dump dei dati per la tabella `ecommerce_prodotti`
+-- Dumping data for table `ecommerce_prodotti`
 --
 
 INSERT INTO `ecommerce_prodotti` (`ID`, `nome`, `descrizione`, `dataAggiunta`, `quantita`, `prezzo`) VALUES
@@ -194,7 +218,7 @@ INSERT INTO `ecommerce_prodotti` (`ID`, `nome`, `descrizione`, `dataAggiunta`, `
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `ecommerce_utenti`
+-- Table structure for table `ecommerce_utenti`
 --
 
 CREATE TABLE `ecommerce_utenti` (
@@ -208,18 +232,18 @@ CREATE TABLE `ecommerce_utenti` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dump dei dati per la tabella `ecommerce_utenti`
+-- Dumping data for table `ecommerce_utenti`
 --
 
 INSERT INTO `ecommerce_utenti` (`ID`, `numTelefono`, `username`, `password`, `email`, `nome`, `cognome`) VALUES
 (1, 123456789, 'BmmNdr', 'b732c65bbf968bb616a26df9e83d0ab7', 'bekod65124@sentrau.com', 'Andrea', 'Biemmi');
 
 --
--- Indici per le tabelle scaricate
+-- Indexes for dumped tables
 --
 
 --
--- Indici per le tabelle `ecommerce_aggiunta`
+-- Indexes for table `ecommerce_aggiunta`
 --
 ALTER TABLE `ecommerce_aggiunta`
   ADD PRIMARY KEY (`ID`),
@@ -227,7 +251,7 @@ ALTER TABLE `ecommerce_aggiunta`
   ADD KEY `Aggiunta-Prodotti` (`IDProdotto`);
 
 --
--- Indici per le tabelle `ecommerce_appartiene`
+-- Indexes for table `ecommerce_appartiene`
 --
 ALTER TABLE `ecommerce_appartiene`
   ADD PRIMARY KEY (`ID`),
@@ -235,151 +259,149 @@ ALTER TABLE `ecommerce_appartiene`
   ADD KEY `Appartiene-Categoria` (`IDCategoria`);
 
 --
--- Indici per le tabelle `ecommerce_carrelli`
+-- Indexes for table `ecommerce_carrelli`
 --
 ALTER TABLE `ecommerce_carrelli`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `Carrelli-Utenti` (`IDUtente`);
 
 --
--- Indici per le tabelle `ecommerce_categoria`
+-- Indexes for table `ecommerce_categoria`
 --
 ALTER TABLE `ecommerce_categoria`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indici per le tabelle `ecommerce_feedback`
+-- Indexes for table `ecommerce_feedback`
 --
 ALTER TABLE `ecommerce_feedback`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `Feedback-Utenti` (`IDUtente`),
-  ADD KEY `Feedback-Ordini` (`IDOrdine`),
   ADD KEY `Feedback-Prodotti` (`IDProdotto`);
 
 --
--- Indici per le tabelle `ecommerce_foto`
+-- Indexes for table `ecommerce_foto`
 --
 ALTER TABLE `ecommerce_foto`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `Foto-Prodotti` (`IDProdotto`);
 
 --
--- Indici per le tabelle `ecommerce_ordini`
+-- Indexes for table `ecommerce_ordini`
 --
 ALTER TABLE `ecommerce_ordini`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `Ordini-Carrelli` (`IDCarrello`);
 
 --
--- Indici per le tabelle `ecommerce_prodotti`
+-- Indexes for table `ecommerce_prodotti`
 --
 ALTER TABLE `ecommerce_prodotti`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indici per le tabelle `ecommerce_utenti`
+-- Indexes for table `ecommerce_utenti`
 --
 ALTER TABLE `ecommerce_utenti`
   ADD PRIMARY KEY (`ID`);
 
 --
--- AUTO_INCREMENT per le tabelle scaricate
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT per la tabella `ecommerce_aggiunta`
+-- AUTO_INCREMENT for table `ecommerce_aggiunta`
 --
 ALTER TABLE `ecommerce_aggiunta`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT per la tabella `ecommerce_appartiene`
+-- AUTO_INCREMENT for table `ecommerce_appartiene`
 --
 ALTER TABLE `ecommerce_appartiene`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT per la tabella `ecommerce_carrelli`
+-- AUTO_INCREMENT for table `ecommerce_carrelli`
 --
 ALTER TABLE `ecommerce_carrelli`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT per la tabella `ecommerce_categoria`
+-- AUTO_INCREMENT for table `ecommerce_categoria`
 --
 ALTER TABLE `ecommerce_categoria`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT per la tabella `ecommerce_feedback`
+-- AUTO_INCREMENT for table `ecommerce_feedback`
 --
 ALTER TABLE `ecommerce_feedback`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT per la tabella `ecommerce_foto`
+-- AUTO_INCREMENT for table `ecommerce_foto`
 --
 ALTER TABLE `ecommerce_foto`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT per la tabella `ecommerce_ordini`
+-- AUTO_INCREMENT for table `ecommerce_ordini`
 --
 ALTER TABLE `ecommerce_ordini`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT per la tabella `ecommerce_prodotti`
+-- AUTO_INCREMENT for table `ecommerce_prodotti`
 --
 ALTER TABLE `ecommerce_prodotti`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT per la tabella `ecommerce_utenti`
+-- AUTO_INCREMENT for table `ecommerce_utenti`
 --
 ALTER TABLE `ecommerce_utenti`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Limiti per le tabelle scaricate
+-- Constraints for dumped tables
 --
 
 --
--- Limiti per la tabella `ecommerce_aggiunta`
+-- Constraints for table `ecommerce_aggiunta`
 --
 ALTER TABLE `ecommerce_aggiunta`
   ADD CONSTRAINT `Aggiunta-Carrelli` FOREIGN KEY (`IDCarrello`) REFERENCES `ecommerce_carrelli` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Aggiunta-Prodotti` FOREIGN KEY (`IDProdotto`) REFERENCES `ecommerce_prodotti` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limiti per la tabella `ecommerce_appartiene`
+-- Constraints for table `ecommerce_appartiene`
 --
 ALTER TABLE `ecommerce_appartiene`
   ADD CONSTRAINT `Appartiene-Categoria` FOREIGN KEY (`IDCategoria`) REFERENCES `ecommerce_categoria` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Appartiene-Prodotto` FOREIGN KEY (`IDProdotto`) REFERENCES `ecommerce_prodotti` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limiti per la tabella `ecommerce_carrelli`
+-- Constraints for table `ecommerce_carrelli`
 --
 ALTER TABLE `ecommerce_carrelli`
   ADD CONSTRAINT `Carrelli-Utenti` FOREIGN KEY (`IDUtente`) REFERENCES `ecommerce_utenti` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limiti per la tabella `ecommerce_feedback`
+-- Constraints for table `ecommerce_feedback`
 --
 ALTER TABLE `ecommerce_feedback`
-  ADD CONSTRAINT `Feedback-Ordini` FOREIGN KEY (`IDOrdine`) REFERENCES `ecommerce_ordini` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Feedback-Prodotti` FOREIGN KEY (`IDProdotto`) REFERENCES `ecommerce_prodotti` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Feedback-Utenti` FOREIGN KEY (`IDUtente`) REFERENCES `ecommerce_utenti` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limiti per la tabella `ecommerce_foto`
+-- Constraints for table `ecommerce_foto`
 --
 ALTER TABLE `ecommerce_foto`
   ADD CONSTRAINT `Foto-Prodotti` FOREIGN KEY (`IDProdotto`) REFERENCES `ecommerce_prodotti` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limiti per la tabella `ecommerce_ordini`
+-- Constraints for table `ecommerce_ordini`
 --
 ALTER TABLE `ecommerce_ordini`
   ADD CONSTRAINT `Ordini-Carrelli` FOREIGN KEY (`IDCarrello`) REFERENCES `ecommerce_carrelli` (`IDUtente`) ON DELETE CASCADE ON UPDATE CASCADE;

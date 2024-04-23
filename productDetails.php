@@ -43,6 +43,7 @@ if (isset($_GET['id'])) {
     <link href="css/style.css" rel="stylesheet">
 
     <link href="css/imageSlider.css" rel="stylesheet">
+    <link href="css/rangeSlider.css" rel="stylesheet">
 </head>
 
 <body>
