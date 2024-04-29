@@ -87,6 +87,7 @@ class Product
            <input type='hidden' name='id' value='$this->ID'>
            <h4 class='fw-bold mb-3'>$this->nome</h4>
            <h5 class='fw-bold mb-3'>$this->prezzo $</h5>
+           <h5>Quantità: $this->quantita </h5>
            <p class='mb-4'>$this->descrizione</p>
            <div class='input-group quantity mb-5' style='width: 200px; margin: 0 auto;'>
               <div class='input-group-btn'>
