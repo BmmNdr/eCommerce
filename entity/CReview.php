@@ -37,6 +37,7 @@ class Review
         return $reviews;
     }
 
+    //Form per lasciare una recensione
     public static function reviewForm($idProdotto)
     {
         $string = "
@@ -70,6 +71,7 @@ class Review
         return $string;
     }
 
+    //Render della singola recensione nella pagina productDetails.php
     public function outNav()
     {
         $string = "<div class='d-flex'><div><p class='mb-2' style='font-size: 14px;'>" . $this->Data . '</p>';
@@ -88,6 +90,7 @@ class Review
         return $string;
     }
 
+    //Render di tutte le recensioni nella pagina productDetails.php
     public static function navReview($reviews)
     {
         $string = "<div class='col-lg-12'>
@@ -108,6 +111,7 @@ class Review
         return $string;
     }
 
+    //Render delle recensioni random nella index.php
     public static function reviewSlider()
     {
         $string = '<div class="testimonial-slider">';

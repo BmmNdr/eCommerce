@@ -3,6 +3,7 @@ require_once "CProduct.php";
 
 class CGallery
 {
+    //Ritorna alcuni prodotti filtrati e in base alla pagina
     public static function getProducts($pagina=null, $filter=null)
     {
         $numeroProdottiPerPagina = 2;
@@ -18,20 +19,18 @@ class CGallery
         return Product::fromRecordSet(myDB::getInstance()->Select($sql));
     }
 
+    //Render della galleria nella pagina shop.php. I prodotti vengono inseriti quando il documento è pronto da JS
     public static function outGallery()
     {
         $string = "<div class='product-section'><div class='container'><div id='galleria' class='row'>";
 
-        //$products = CGallery::getProducts($pagina, $filter);
-        //foreach ($products as $product) {
-        //    $string .= $product->outShop();
-        //}
 
         $string .= "</div></div></div>";
 
         return $string;
     }
 
+    //Render dei tre prodotti nella index.php
     public static function outGalleryIndex()
     {
         $string = "<div class='product-section'><div class='container'><div class='row'>

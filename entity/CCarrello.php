@@ -5,7 +5,7 @@ require_once "entity/CProduct.php";
 
 class Carrello
 {
-
+  //prodotti nel carrello (Array di Product)
   public $prodotti;
   public $idCarrello;
   public $idUtente;
@@ -17,7 +17,7 @@ class Carrello
     $this->idCarrello = $idCarrello;
     $this->idUtente = $idUtente;
 
-    $this->prodotti = Product::fromIdCarrello($idCarrello);
+    $this->prodotti = Product::fromIdCarrello($idCarrello); //recupero i prodotti dal carrello
 
     $this->totale = 0;
 
@@ -26,6 +26,7 @@ class Carrello
     }
   }
 
+  //Render carrello nella pagina carrello.php
   public function out()
   {
     $string = '<div class="container">
@@ -89,6 +90,7 @@ class Carrello
     return $string;
   }
 
+  //Render carrello nella pagina checkout.php
   public function checkout()
   {
     $string = '<div class="untree_co-section">

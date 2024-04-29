@@ -28,12 +28,14 @@ class Product
         $this->reviews = Review::fromRecordSet(myDB::getInstance()->Select("SELECT * FROM ecommerce_feedback WHERE IDProdotto = ?", "i", [$ID]));
     }
 
+    //Ritorna un prodotto in base all'ID
     public static function fromID($ID)
     {
         $new = myDB::getInstance()->Select("SELECT * FROM ecommerce_prodotti WHERE ID = ?", "i", [$ID])[0];
         return new Product($new['ID'], $new['nome'], $new['descrizione'], $new['prezzo'], $new['quantita'], $new['dataAggiunta']);
     }
 
+    //Ritorna un array di Prodotti presenti in un carrello
     public static function fromIDCarrello($IDCarrello)
     {
         $new = myDB::getInstance()->Select("SELECT * FROM ecommerce_prodotti JOIN ecommerce_aggiunta ON ecommerce_prodotti.ID = ecommerce_aggiunta.IDProdotto WHERE ecommerce_aggiunta.IDCarrello = ?", "i", [$IDCarrello]);
@@ -56,6 +58,7 @@ class Product
         return $products;
     }
 
+    //Render del singolo prodotto nella pagina shop.php
     public function outShop()
     {
         $productImage = "images/products/" . myDB::getInstance()->Select("SELECT Path FROM ecommerce_foto WHERE IDProdotto = " . $this->ID . " LIMIT 1")[0]['Path'];
@@ -73,6 +76,7 @@ class Product
         return $string;
     }
 
+    //Render del prodotto nella pagina productDetails.php
     public function outDetails()
     {
         $string = "<div class='container py-5'><div class='row g-4 mb-5'><div class='row g-4'><div class='col-lg-6 slideshow-container'>";
@@ -95,7 +99,7 @@ class Product
                  </input>
               </div>
               <input type='number' style='background-color: #eff2f1;'
-                 class='form-control form-control-sm text-center border-0' name='quantity' id='selectedQuantity' value='1'>
+                 class='form-control form-control-sm text-center border-0' name='quantity' id='selectedQuantity' value='0' readonly>
               <div class='input-group-btn'>
                  <input type='button' class='btn-product btn-sm btn-plus rounded-circle bg-light border'
                     onclick='addQuantity(1)' value='+' style='width: 50px; height: 50px'>
@@ -115,6 +119,7 @@ class Product
         return $string;
     }
 
+    //Render di un singolo prodotto nella pagina carrello.php
     public function outCart()
     {
         $totale = $this->quantita * $this->prezzo;

@@ -87,11 +87,13 @@ class myDB
         try {
 
             $this->executeStatement($query, $types, $params)->close();
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
 
-        return false;
+            return true;
+        } catch (Exception $e) {
+            //throw new Exception($e->getMessage());
+
+            return false;
+        }
     }
 
     // Remove a row/s in a Database Table
@@ -105,6 +107,21 @@ class myDB
         }
 
         return false;
+    }
+
+    public function beginTransaction()
+    {
+        $this->_connection->begin_transaction();
+    }
+
+    public function commit()
+    {
+        $this->_connection->commit();
+    }
+
+    public function rollback()
+    {
+        $this->_connection->rollback();
     }
 
     // execute statement

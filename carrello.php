@@ -31,6 +31,13 @@ $carrello = new Carrello($_SESSION['IDCarrello'], $_SESSION['IDUtente']);
 
 		<?php require_once "entity/CHero.php"; echo Hero::normalHero("Cart"); ?>
 
+		<?php if(isset($_GET["err"])){ 
+			echo '<div class="alert alert-danger" role="alert">
+			'.$_GET["err"].'
+			</div>';
+		}
+		?>
+
 		<div id="grid">
         <?php echo $carrello->out(); ?>
 		</div>

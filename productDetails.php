@@ -53,6 +53,13 @@ if (isset($_GET['id'])) {
 
     <?php echo Hero::normalHero("Product Details") ?>
 
+    <?php if(isset($_GET["err"])){ 
+			echo '<div class="alert alert-danger" role="alert">
+			'.$_GET["err"].'
+			</div>';
+		}
+		?>
+
     <?php echo $prodotto->outDetails() ?>
 
     <!-- JavaScript Libraries -->
