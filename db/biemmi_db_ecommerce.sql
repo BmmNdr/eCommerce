@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2024 at 05:52 PM
+-- Generation Time: Apr 29, 2024 at 06:34 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,6 +46,26 @@ CREATE TABLE `ecommerce_appartiene` (
   `IDCategoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `ecommerce_appartiene`
+--
+
+INSERT INTO `ecommerce_appartiene` (`ID`, `IDProdotto`, `IDCategoria`) VALUES
+(4, 1, 3),
+(5, 2, 4),
+(6, 3, 5),
+(7, 4, 6),
+(8, 5, 7),
+(9, 6, 8),
+(10, 7, 9),
+(11, 8, 10),
+(12, 9, 6),
+(13, 10, 11),
+(14, 1, 12),
+(15, 2, 12),
+(16, 3, 12),
+(17, 4, 12);
+
 -- --------------------------------------------------------
 
 --
@@ -65,9 +85,24 @@ CREATE TABLE `ecommerce_carrelli` (
 
 CREATE TABLE `ecommerce_categoria` (
   `ID` int(11) NOT NULL,
-  `Nome` varchar(32) NOT NULL,
-  `Descrizione` text NOT NULL
+  `Nome` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `ecommerce_categoria`
+--
+
+INSERT INTO `ecommerce_categoria` (`ID`, `Nome`) VALUES
+(3, 'Smartphone'),
+(4, 'Portatili'),
+(5, 'Smart TV'),
+(6, 'Console da gioco'),
+(7, 'Macchine fotografiche'),
+(8, 'Smartwatch'),
+(9, 'Cuffie'),
+(10, 'Droni'),
+(11, 'Stampanti'),
+(12, 'Elettronica');
 
 -- --------------------------------------------------------
 
@@ -81,9 +116,20 @@ CREATE TABLE `ecommerce_feedback` (
   `Commento` varchar(256) NOT NULL,
   `Data` date NOT NULL,
   `IDUtente` int(11) NOT NULL,
-  `IDProdotto` int(11) NOT NULL,
-  `IDOrdine` int(11) NOT NULL
+  `IDProdotto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `ecommerce_feedback`
+--
+
+INSERT INTO `ecommerce_feedback` (`ID`, `Voto`, `Commento`, `Data`, `IDUtente`, `IDProdotto`) VALUES
+(3, 2, 'Pessimo Prodotto', '2024-04-02', 1, 1),
+(4, 5, 'Ottima qualita\'/prezzo', '2024-04-02', 1, 2),
+(5, 8, 'Ottima', '2024-04-02', 1, 3),
+(6, 8, 'Miglior console', '2024-04-02', 1, 4),
+(7, 7, 'Ottimo laptop', '2024-04-03', 1, 2),
+(8, 8, 'Portatile leggero', '2024-04-23', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -136,8 +182,8 @@ CREATE TABLE `ecommerce_prodotti` (
   `nome` varchar(32) NOT NULL,
   `descrizione` text NOT NULL,
   `dataAggiunta` date NOT NULL,
-  `quantita` int(11) NOT NULL DEFAULT 0,
-  `prezzo` int(11) NOT NULL
+  `quantita` int(11) NOT NULL,
+  `prezzo` int(11) NOT NULL CHECK (`prezzo` >= 0)
 ) ;
 
 --
@@ -149,9 +195,9 @@ INSERT INTO `ecommerce_prodotti` (`ID`, `nome`, `descrizione`, `dataAggiunta`, `
 (2, 'Portatile HP Pavilion', 'Portatile di fascia media con buone prestazioni.', '2024-04-02', 0, 800),
 (3, 'Smart TV Samsung 55 pollici', 'TV con schermo grande e risoluzione 4K.', '2024-04-02', 20, 1500),
 (4, 'Console Xbox Series X', 'Nuova generazione di console di gioco.', '2024-04-02', 40, 500),
-(5, 'Macchina fotografica Canon EOS', 'Fotocamera reflex con sensore di ultima generazione.', '2024-04-02', 1, 1300),
+(5, 'Macchina fotografica Canon EOS', 'Fotocamera reflex con sensore di ultima generazione.', '2024-04-02', 15, 1300),
 (6, 'Smartwatch Fitbit Versa', 'Smartwatch con monitoraggio avanzato della salute.', '2024-04-02', 25, 200),
-(7, 'Cuffie Bluetooth Sony WH-1000XM4', 'Cuffie con cancellazione del rumore di alta qualità.', '2024-04-02', 35, 350),
+(7, 'Cuffie Bluetooth Sony WH-1000XM4', 'Cuffie con cancellazione del rumore di alta qualità.', '2024-04-02', 33, 350),
 (8, 'Drone DJI Mavic Air 2', 'Drone con fotocamera 4K e autonomia di volo elevata.', '2024-04-02', 10, 800),
 (9, 'Console PlayStation 5', 'Ultima console di gioco di Sony.', '2024-04-02', 45, 500),
 (10, 'Stampante HP LaserJet Pro', 'Stampante laser ad alta velocità per uso professionale.', '2024-04-02', 20, 300);
@@ -178,7 +224,7 @@ CREATE TABLE `ecommerce_utenti` (
 
 INSERT INTO `ecommerce_utenti` (`ID`, `numTelefono`, `username`, `password`, `email`, `nome`, `cognome`) VALUES
 (1, 123456789, 'BmmNdr', 'b732c65bbf968bb616a26df9e83d0ab7', 'bekod65124@sentrau.com', 'Andrea', 'Biemmi'),
-(3, 12121313, 'utente', '3ce98305181b1bac59d024a49b0ffd73', 'a@a.com', 'A', 'B');
+(3, 123123, 'utente', '3ce98305181b1bac59d024a49b0ffd73', 'a@a.com', 'a', 'b');
 
 --
 -- Indexes for dumped tables
@@ -219,7 +265,6 @@ ALTER TABLE `ecommerce_categoria`
 ALTER TABLE `ecommerce_feedback`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `Feedback-Utenti` (`IDUtente`),
-  ADD KEY `Feedback-Ordini` (`IDOrdine`),
   ADD KEY `Feedback-Prodotti` (`IDProdotto`);
 
 --
@@ -256,31 +301,31 @@ ALTER TABLE `ecommerce_utenti`
 -- AUTO_INCREMENT for table `ecommerce_aggiunta`
 --
 ALTER TABLE `ecommerce_aggiunta`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_appartiene`
 --
 ALTER TABLE `ecommerce_appartiene`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_carrelli`
 --
 ALTER TABLE `ecommerce_carrelli`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_categoria`
 --
 ALTER TABLE `ecommerce_categoria`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_feedback`
 --
 ALTER TABLE `ecommerce_feedback`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_foto`
@@ -292,7 +337,7 @@ ALTER TABLE `ecommerce_foto`
 -- AUTO_INCREMENT for table `ecommerce_ordini`
 --
 ALTER TABLE `ecommerce_ordini`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_prodotti`
@@ -334,7 +379,6 @@ ALTER TABLE `ecommerce_carrelli`
 -- Constraints for table `ecommerce_feedback`
 --
 ALTER TABLE `ecommerce_feedback`
-  ADD CONSTRAINT `Feedback-Ordini` FOREIGN KEY (`IDOrdine`) REFERENCES `ecommerce_ordini` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Feedback-Prodotti` FOREIGN KEY (`IDProdotto`) REFERENCES `ecommerce_prodotti` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Feedback-Utenti` FOREIGN KEY (`IDUtente`) REFERENCES `ecommerce_utenti` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
