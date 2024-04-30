@@ -182,8 +182,8 @@ CREATE TABLE `ecommerce_prodotti` (
   `nome` varchar(32) NOT NULL,
   `descrizione` text NOT NULL,
   `dataAggiunta` date NOT NULL,
-  `quantita` int(11) NOT NULL,
-  `prezzo` int(11) NOT NULL CHECK (`prezzo` >= 0)
+  `quantita` int(11) NOT NULL CHECK (`quantita` >= 0),
+  `prezzo` int(11) NOT NULL
 ) ;
 
 --
