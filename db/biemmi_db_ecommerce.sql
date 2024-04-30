@@ -184,7 +184,7 @@ CREATE TABLE `ecommerce_prodotti` (
   `dataAggiunta` date NOT NULL,
   `quantita` int(11) NOT NULL CHECK (`quantita` >= 0),
   `prezzo` int(11) NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `ecommerce_prodotti`
