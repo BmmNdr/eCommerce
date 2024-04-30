@@ -7,6 +7,7 @@ if (count($result) > 0) {
     session_start();
     $_SESSION["username"] = $result[0]["username"];
     $_SESSION["IDUtente"] = $result[0]["ID"];
+    $_SESSION["isAdmin"] = $result[0]["isAdmin"];
 
     $idCarrello =  myDB::getInstance()->Select("SELECT MAX(ID) FROM ecommerce_carrelli WHERE IDUtente = ?", "i", [myDB::getInstance()->Select("SELECT ID FROM ecommerce_utenti WHERE username = ?", "s", [$_SESSION["username"]])[0]["ID"]])[0]["MAX(ID)"];
 
@@ -16,7 +17,10 @@ if (count($result) > 0) {
 
     $_SESSION["IDCarrello"] = $idCarrello;
     
-    header("location: index.php");
+    if(!$_SESSION["isAdmin"])
+        header("location: index.php");
+    else
+        header("location: admin.php");
 }
 else {
     header("location: login.php?err=Username o Password errati");

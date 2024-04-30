@@ -136,6 +136,24 @@ class Product
         return $string;
     }
 
+    //Render di un singolo prodotto nella pagina admin.php
+    public function outAdmin()
+    {
+        $productImage = "images/products/" . myDB::getInstance()->Select("SELECT Path FROM ecommerce_foto WHERE IDProdotto = " . $this->ID . " LIMIT 1")[0]['Path'];
+        $productPage = "productDetails.php?id=" . $this->ID;
+
+        $string = "<div class='col-12 col-md-4 col-lg-3 mb-5'>
+                        <a class='product-item'>
+                            <img src='$productImage' class='img-fluid product-thumbnail'>
+                            <h3 class='product-title'>$this->nome</h3>
+                            <input type='button' class='btn-product btn-sm btn-minus rounded-circle bg-light border'onclick='addQuantity(-1, $this->ID)' value='-' style='width: 40px; height: 40px; margin: 10px'></input>
+                            <strong class='product-price' id='$this->ID'>$this->quantita</strong>
+                            <input type='button' class='btn-product btn-sm btn-minus rounded-circle bg-light border'onclick='addQuantity(1, $this->ID)' value='+' style='width: 40px; height: 40px; margin: 10px'></input>
+                        </a>
+                    </div>";
+
+        return $string;
+    }
 }
 
 ?>

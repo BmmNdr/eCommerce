@@ -17,12 +17,12 @@ require_once "entity/connection.php";
 <body>
     <?php include "template/navbar.php"; ?>
 
+    <?php echo Hero::normalHero("Shop") ?>
+
     <?php
     if (isset($_GET["err"]))
         echo "<script>alert('" . $_GET["err"] . "')</script>";
     ?>
-
-    <?php echo Hero::normalHero("Shop") ?>
 
     <div class="container">
         <form action="shop.php" method="GET">

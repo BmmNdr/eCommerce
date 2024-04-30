@@ -51,6 +51,20 @@ class CGallery
 
         return $string;
     }
+
+    public static function outGalleryAdmin()
+    {
+        $string = "<div class='product-section'><div class='container'><div id='galleria' class='row'>";
+
+        $products = CGallery::getProducts();
+        foreach ($products as $product) {
+            $string .= $product->outAdmin();
+        }
+
+        $string .= "</div></div></div>";
+
+        return $string;
+    }
 }
 
 ?>
