@@ -6,6 +6,8 @@ if(!isset($_SESSION["username"]) || !isset($_GET["ID"])){
     exit();
 }
 
+if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]) header("Location: admin.php");
+
 require_once "entity/connection.php";
 
 myDB::getInstance()->Remove("DELETE FROM ecommerce_aggiunta WHERE IDProdotto = ? AND IDCarrello = ?", "ii", [$_GET["ID"], $_SESSION["IDCarrello"]]);

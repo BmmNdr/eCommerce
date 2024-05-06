@@ -5,6 +5,8 @@ if(!isset($_SESSION['username'])){
     header('location:shop.php');
 }
 
+if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]) header("Location: admin.php");
+
 require_once('entity/connection.php');
 
 $idProdotto = $_POST['idProdotto'];

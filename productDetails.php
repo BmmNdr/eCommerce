@@ -7,6 +7,9 @@ require_once "entity/CProduct.php";
 if (isset($_GET['id'])) {
     $prodotto = Product::fromID($_GET['id']);
 }
+
+if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]) header("Location: admin.php");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

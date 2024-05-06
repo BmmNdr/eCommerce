@@ -5,6 +5,8 @@ if (!isset($_SESSION['IDCarrello'])) {
     header('Location: index.php');
 }
 
+if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]) header("Location: admin.php");
+
 require_once "entity/CCarrello.php";
 
 $carrello = new Carrello($_SESSION['IDCarrello'], $_SESSION['IDUtente']);

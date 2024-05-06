@@ -8,6 +8,8 @@ if(!isset($_SESSION["username"])){ //TODO cart w/out login
     exit();
 }
 
+if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]) header("Location: admin.php");
+
 require_once "entity/connection.php";
 
 $quantitaDisponibile = myDB::getInstance()->Select("SELECT quantita FROM ecommerce_prodotti WHERE ID = ?", "i", [$productID])[0]["quantita"];

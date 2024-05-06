@@ -6,6 +6,8 @@ if(!isset($_SESSION["username"])){
     exit();
 }
 
+if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]) header("Location: admin.php");
+
 require_once "entity/connection.php";
 require_once "entity/CProduct.php";
 

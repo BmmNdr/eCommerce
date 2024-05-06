@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-if(!isset($_SESSION["username"])){
-header("Location: shop.php");
-}
+if(!isset($_SESSION["username"])) header("Location: shop.php");
+
+if(isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]) header("Location: admin.php");
 
 require_once "entity/CCarrello.php";
 
