@@ -21,7 +21,7 @@ function modifyQuantity() {
         },
         success: function (data) {
             if(data != "ok") {
-                window.location.href = "admin.php?msg=Valori non validi";
+                window.location.href = "admin.php?err=Valori non validi";
             }
             else {
                 window.location.href = "admin.php?msg=Quantità modificate con successo";

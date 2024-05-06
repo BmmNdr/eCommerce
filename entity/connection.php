@@ -7,7 +7,7 @@ class myDB
     private  $dbhost = "localhost";
     private  $username = "root";
     private  $password = "";
-    private  $dbname = "biemmi_db_ecommerce";
+    private  $dbname = "ecommerce";
 
 
     /*
