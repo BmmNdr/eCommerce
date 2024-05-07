@@ -9,6 +9,7 @@ if (count($result) > 0) {
     $_SESSION["IDUtente"] = $result[0]["ID"];
     $_SESSION["isAdmin"] = $result[0]["isAdmin"];
 
+    
     $idCarrello =  myDB::getInstance()->Select("SELECT MAX(ID) FROM ecommerce_carrelli WHERE IDUtente = ?", "i", [myDB::getInstance()->Select("SELECT ID FROM ecommerce_utenti WHERE username = ?", "s", [$_SESSION["username"]])[0]["ID"]])[0]["MAX(ID)"];
 
     if($idCarrello == NULL){

@@ -3,7 +3,7 @@ session_start();
 
 $productID = $_POST['id'];
 
-if(!isset($_SESSION["username"])){ //TODO cart w/out login
+if(!isset($_SESSION["IDCarrello"])){ 
     header("Location: productDetails.php?id=$productID");
     exit();
 }

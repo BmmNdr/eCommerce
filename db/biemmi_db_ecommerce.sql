@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 29, 2024 at 06:34 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost
+-- Generation Time: May 07, 2024 at 10:41 AM
+-- Server version: 8.0.32
+-- PHP Version: 8.0.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `biemmi_db_ecommerce`
+-- Database: `my_bmmndr`
 --
 
 -- --------------------------------------------------------
@@ -28,11 +28,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `ecommerce_aggiunta` (
-  `ID` int(11) NOT NULL,
-  `IDProdotto` int(11) NOT NULL,
-  `IDCarrello` int(11) NOT NULL,
-  `quantita` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `ID` int NOT NULL,
+  `IDProdotto` int NOT NULL,
+  `IDCarrello` int NOT NULL,
+  `quantita` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -41,10 +41,10 @@ CREATE TABLE `ecommerce_aggiunta` (
 --
 
 CREATE TABLE `ecommerce_appartiene` (
-  `ID` int(11) NOT NULL,
-  `IDProdotto` int(11) NOT NULL,
-  `IDCategoria` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `ID` int NOT NULL,
+  `IDProdotto` int NOT NULL,
+  `IDCategoria` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ecommerce_appartiene`
@@ -73,9 +73,16 @@ INSERT INTO `ecommerce_appartiene` (`ID`, `IDProdotto`, `IDCategoria`) VALUES
 --
 
 CREATE TABLE `ecommerce_carrelli` (
-  `ID` int(11) NOT NULL,
-  `IDUtente` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `ID` int NOT NULL,
+  `IDUtente` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ecommerce_carrelli`
+--
+
+INSERT INTO `ecommerce_carrelli` (`ID`, `IDUtente`) VALUES
+(16, 4);
 
 -- --------------------------------------------------------
 
@@ -84,9 +91,9 @@ CREATE TABLE `ecommerce_carrelli` (
 --
 
 CREATE TABLE `ecommerce_categoria` (
-  `ID` int(11) NOT NULL,
+  `ID` int NOT NULL,
   `Nome` varchar(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ecommerce_categoria`
@@ -111,13 +118,13 @@ INSERT INTO `ecommerce_categoria` (`ID`, `Nome`) VALUES
 --
 
 CREATE TABLE `ecommerce_feedback` (
-  `ID` int(11) NOT NULL,
-  `Voto` int(11) NOT NULL,
+  `ID` int NOT NULL,
+  `Voto` int NOT NULL,
   `Commento` varchar(256) NOT NULL,
   `Data` date NOT NULL,
-  `IDUtente` int(11) NOT NULL,
-  `IDProdotto` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `IDUtente` int NOT NULL,
+  `IDProdotto` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ecommerce_feedback`
@@ -138,10 +145,10 @@ INSERT INTO `ecommerce_feedback` (`ID`, `Voto`, `Commento`, `Data`, `IDUtente`, 
 --
 
 CREATE TABLE `ecommerce_foto` (
-  `ID` int(11) NOT NULL,
+  `ID` int NOT NULL,
   `Path` varchar(256) NOT NULL,
-  `IDProdotto` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `IDProdotto` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ecommerce_foto`
@@ -167,9 +174,9 @@ INSERT INTO `ecommerce_foto` (`ID`, `Path`, `IDProdotto`) VALUES
 --
 
 CREATE TABLE `ecommerce_ordini` (
-  `ID` int(11) NOT NULL,
-  `IDCarrello` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `ID` int NOT NULL,
+  `IDCarrello` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -178,13 +185,13 @@ CREATE TABLE `ecommerce_ordini` (
 --
 
 CREATE TABLE `ecommerce_prodotti` (
-  `ID` int(11) NOT NULL,
+  `ID` int NOT NULL,
   `nome` varchar(32) NOT NULL,
   `descrizione` text NOT NULL,
   `dataAggiunta` date NOT NULL,
-  `quantita` int(11) NOT NULL CHECK (`quantita` >= 0),
-  `prezzo` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `quantita` int NOT NULL,
+  `prezzo` int NOT NULL
+) ;
 
 --
 -- Dumping data for table `ecommerce_prodotti`
@@ -192,11 +199,11 @@ CREATE TABLE `ecommerce_prodotti` (
 
 INSERT INTO `ecommerce_prodotti` (`ID`, `nome`, `descrizione`, `dataAggiunta`, `quantita`, `prezzo`) VALUES
 (1, 'Smartphone iPhone 13', 'Ultimo modello di smartphone di Apple.', '2024-04-02', 50, 1000),
-(2, 'Portatile HP Pavilion', 'Portatile di fascia media con buone prestazioni.', '2024-04-02', 0, 800),
-(3, 'Smart TV Samsung 55 pollici', 'TV con schermo grande e risoluzione 4K.', '2024-04-02', 20, 1500),
-(4, 'Console Xbox Series X', 'Nuova generazione di console di gioco.', '2024-04-02', 40, 500),
+(2, 'Portatile HP Pavilion', 'Portatile di fascia media con buone prestazioni.', '2024-04-02', 8, 800),
+(3, 'Smart TV Samsung 55 pollici', 'TV con schermo grande e risoluzione 4K.', '2024-04-02', 19, 1500),
+(4, 'Console Xbox Series X', 'Nuova generazione di console di gioco.', '2024-04-02', 43, 500),
 (5, 'Macchina fotografica Canon EOS', 'Fotocamera reflex con sensore di ultima generazione.', '2024-04-02', 15, 1300),
-(6, 'Smartwatch Fitbit Versa', 'Smartwatch con monitoraggio avanzato della salute.', '2024-04-02', 25, 200),
+(6, 'Smartwatch Fitbit Versa', 'Smartwatch con monitoraggio avanzato della salute.', '2024-04-02', 23, 200),
 (7, 'Cuffie Bluetooth Sony WH-1000XM4', 'Cuffie con cancellazione del rumore di alta qualità.', '2024-04-02', 33, 350),
 (8, 'Drone DJI Mavic Air 2', 'Drone con fotocamera 4K e autonomia di volo elevata.', '2024-04-02', 10, 800),
 (9, 'Console PlayStation 5', 'Ultima console di gioco di Sony.', '2024-04-02', 45, 500),
@@ -209,22 +216,24 @@ INSERT INTO `ecommerce_prodotti` (`ID`, `nome`, `descrizione`, `dataAggiunta`, `
 --
 
 CREATE TABLE `ecommerce_utenti` (
-  `ID` int(11) NOT NULL,
-  `numTelefono` int(11) NOT NULL,
+  `ID` int NOT NULL,
+  `numTelefono` int NOT NULL,
   `username` varchar(36) NOT NULL,
   `password` varchar(32) NOT NULL,
   `email` varchar(36) NOT NULL,
   `nome` varchar(32) NOT NULL,
-  `cognome` varchar(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `cognome` varchar(32) NOT NULL,
+  `isAdmin` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ecommerce_utenti`
 --
 
-INSERT INTO `ecommerce_utenti` (`ID`, `numTelefono`, `username`, `password`, `email`, `nome`, `cognome`) VALUES
-(1, 123456789, 'BmmNdr', 'b732c65bbf968bb616a26df9e83d0ab7', 'bekod65124@sentrau.com', 'Andrea', 'Biemmi'),
-(3, 123123, 'utente', '3ce98305181b1bac59d024a49b0ffd73', 'a@a.com', 'a', 'b');
+INSERT INTO `ecommerce_utenti` (`ID`, `numTelefono`, `username`, `password`, `email`, `nome`, `cognome`, `isAdmin`) VALUES
+(1, 123456789, 'BmmNdr', 'b732c65bbf968bb616a26df9e83d0ab7', 'bekod65124@sentrau.com', 'Andrea', 'Biemmi', 0),
+(3, 123123, 'utente', '3ce98305181b1bac59d024a49b0ffd73', 'a@a.com', 'a', 'b', 0),
+(4, 123456789, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.admin', 'admin', 'admin', 1);
 
 --
 -- Indexes for dumped tables
@@ -301,55 +310,55 @@ ALTER TABLE `ecommerce_utenti`
 -- AUTO_INCREMENT for table `ecommerce_aggiunta`
 --
 ALTER TABLE `ecommerce_aggiunta`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_appartiene`
 --
 ALTER TABLE `ecommerce_appartiene`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_carrelli`
 --
 ALTER TABLE `ecommerce_carrelli`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_categoria`
 --
 ALTER TABLE `ecommerce_categoria`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_feedback`
 --
 ALTER TABLE `ecommerce_feedback`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_foto`
 --
 ALTER TABLE `ecommerce_foto`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_ordini`
 --
 ALTER TABLE `ecommerce_ordini`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_prodotti`
 --
 ALTER TABLE `ecommerce_prodotti`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ecommerce_utenti`
 --
 ALTER TABLE `ecommerce_utenti`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
